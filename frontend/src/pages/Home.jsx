@@ -39,12 +39,30 @@ const Home = () => {
                     </Link>
                 </motion.div>
 
-                {/* Social Icons - Fixed to bottom left */}
+                {/* Social Icons - Mobile (Inline) */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    className="flex md:hidden items-center justify-center space-x-6 mt-12"
+                >
+                    <a href="https://www.linkedin.com/in/adukhamkar/" target="_blank" rel="noopener noreferrer" className="text-[var(--text-muted)] hover:text-primary transition-colors">
+                        <FaLinkedin size={28} />
+                    </a>
+                    <a href="https://x.com/KhamkarAdinath" target="_blank" rel="noopener noreferrer" className="text-[var(--text-muted)] hover:text-primary transition-colors">
+                        <FaTwitter size={28} />
+                    </a>
+                    <a href="https://github.com/khamkaradinath" target="_blank" rel="noopener noreferrer" className="text-[var(--text-muted)] hover:text-primary transition-colors">
+                        <FaGithub size={28} />
+                    </a>
+                </motion.div>
+
+                {/* Social Icons - Desktop (Fixed) */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1, duration: 1 }}
-                    className="fixed bottom-10 left-10 flex flex-col space-y-4 z-50"
+                    className="hidden md:flex fixed bottom-10 left-10 flex-col space-y-4 z-50"
                 >
                     <a href="https://www.linkedin.com/in/adukhamkar/" target="_blank" rel="noopener noreferrer" className="text-[var(--text-muted)] hover:text-primary transition-colors">
                         <FaLinkedin size={24} />

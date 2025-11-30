@@ -14,12 +14,13 @@ os.makedirs("uploads", exist_ok=True)
 # Mount static files
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
-# CORS
 origins = [
     "http://localhost:5173",
     "http://localhost:3000",
-    "http://35.225.176.134:5173"
-    "https://khamkaradinath.online"
+    "http://35.225.176.134:5173",
+    "https://khamkaradinath.online",
+    "https://www.khamkaradinath.online",
+    "https://backend.khamkaradinath.online"
 ]
 
 app.add_middleware(
