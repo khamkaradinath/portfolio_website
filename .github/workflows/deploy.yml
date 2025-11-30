@@ -43,6 +43,8 @@ jobs:
           # Navigate to project directory (adjust path if different)
           cd ~/porfolio_website || git clone https://github.com/${{ github.repository }} ~/porfolio_website && cd ~/porfolio_website
           
+          # git stash old
+          git stash
           # Pull latest changes
           git pull origin main
           
