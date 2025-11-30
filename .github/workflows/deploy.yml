@@ -1,0 +1,58 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Build Backend
+      run: |
+        cd backend
+        docker build .
+        
+    - name: Build Frontend
+      run: |
+        cd frontend
+        docker build .
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to GCP VM
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.GCP_VM_IP }}
+        username: ${{ secrets.GCP_VM_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          # Stop execution if any command fails
+          set -e
+          
+          # Navigate to project directory (adjust path if different)
+          cd ~/porfolio_website || git clone https://github.com/${{ github.repository }} ~/porfolio_website && cd ~/porfolio_website
+          
+          # Pull latest changes
+          git pull origin main
+          
+          # Rebuild and restart containers
+          # Using 'docker compose' (v2) or fallback to 'docker-compose' (v1)
+          if command -v docker-compose &> /dev/null; then
+              docker-compose up -d --build
+          else
+              docker compose up -d --build
+          fi
+          
+          # Clean up unused images to free up disk space
+          docker image prune -f
