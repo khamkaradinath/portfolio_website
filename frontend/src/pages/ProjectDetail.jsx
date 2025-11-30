@@ -16,7 +16,7 @@ const ProjectDetail = () => {
     useEffect(() => {
         const fetchProject = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/projects/${id}`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/projects/${id}`);
                 setProject(response.data);
             } catch (error) {
                 console.error('Error fetching project:', error);
@@ -34,7 +34,7 @@ const ProjectDetail = () => {
         }
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post(`http://localhost:8000/projects/${id}/like`, {}, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/projects/${id}/like`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setProject({ ...project, likes_count: response.data.likes_count, is_liked: response.data.is_liked });
@@ -50,7 +50,7 @@ const ProjectDetail = () => {
         setSubmitting(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post(`http://localhost:8000/projects/${id}/comment`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/projects/${id}/comment`, {
                 content: comment
             }, {
                 headers: { Authorization: `Bearer ${token}` }

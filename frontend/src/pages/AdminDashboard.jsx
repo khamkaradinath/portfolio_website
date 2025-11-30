@@ -46,7 +46,7 @@ const AdminDashboard = () => {
                 formData.append('image', blogImage);
             }
 
-            await axios.post('http://localhost:8000/blog/', formData, getAuthHeader());
+            await axios.post(`${import.meta.env.VITE_API_URL}/blog/`, formData, getAuthHeader());
             alert('Blog post created!');
             setBlogTitle('');
             setBlogSubtitle('');
@@ -79,7 +79,7 @@ const AdminDashboard = () => {
             if (projectUrl) formData.append('project_url', projectUrl);
             if (githubUrl) formData.append('github_url', githubUrl);
 
-            await axios.post('http://localhost:8000/projects/', formData, getAuthHeader());
+            await axios.post(`${import.meta.env.VITE_API_URL}/projects/`, formData, getAuthHeader());
             alert('Project created!');
             setProjectTitle('');
             setProjectDesc('');

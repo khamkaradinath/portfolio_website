@@ -9,7 +9,7 @@ const Projects = () => {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/projects/');
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/projects/`);
                 setProjects(response.data);
             } catch (error) {
                 console.error('Error fetching projects:', error);

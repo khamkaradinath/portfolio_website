@@ -16,7 +16,7 @@ const BlogDetail = () => {
     useEffect(() => {
         const fetchBlog = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/blog/${id}`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/blog/${id}`);
                 setBlog(response.data);
             } catch (error) {
                 console.error('Error fetching blog:', error);
@@ -34,7 +34,7 @@ const BlogDetail = () => {
         }
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post(`http://localhost:8000/blog/${id}/like`, {}, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/blog/${id}/like`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setBlog({ ...blog, claps: response.data.likes_count });
@@ -50,7 +50,7 @@ const BlogDetail = () => {
         setSubmitting(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post(`http://localhost:8000/blog/${id}/comment`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/blog/${id}/comment`, {
                 content: comment
             }, {
                 headers: { Authorization: `Bearer ${token}` }
